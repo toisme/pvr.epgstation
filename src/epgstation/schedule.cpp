@@ -22,21 +22,11 @@ std::vector<program> Schedule::fetch(uint32_t channelId, time_t start, time_t en
 
     list[channelId] = std::vector<program>();
 
-#if defined(_WIN32) || defined(_WIN64)
-    const auto t = localtime(&start); // NOLINT
-#else
-    auto t = new struct tm;
-    localtime_r(&start, t);
-#endif
-
-    char time[10] = { 0 };
-    strftime(time, sizeof(time) - 1, "%y%m%d%H", t);
+    char time[20] = { 0 };
+    snprintf(time, sizeof(time) - 1, "%lld", static_cast<signed long long>(start) * 1000);
     const auto days = static_cast<uint16_t>(std::ceil(difftime(end, start) / 86400));
-#if !defined(_WIN32) && !defined(_WIN64)
-    delete t;
-#endif
 
-    if (api::getSchedule(std::to_string(channelId), std::to_string(start * 1000).c_str(), days, response) == api::REQUEST_FAILED) {
+    if (api::getSchedule(std::to_string(channelId), time, days, response) == api::REQUEST_FAILED) {
         return list[channelId];
     }
 
