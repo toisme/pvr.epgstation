@@ -19,7 +19,13 @@ public:
     long long total;
     long long used;
 
-    NLOHMANN_DEFINE_TYPE_INTRUSIVE(storage, total, used);
+    friend void from_json(const nlohmann::json& nlohmann_json_j, storage& nlohmann_json_t)
+    {
+        if (nlohmann_json_j.contains("items") && nlohmann_json_j["items"].is_array()) {
+            nlohmann_json_t.total = nlohmann_json_j["items"].at(0)["total"];
+            nlohmann_json_t.used = nlohmann_json_j["items"].at(0)["used"];
+        }
+    }
 };
 
 enum ReservedState {
@@ -50,6 +56,8 @@ public:
     ReservedState state; // Optional for reserved program
 
     uint8_t subGenre1 = 0xff;
+    uint64_t thumbnailId;
+    uint64_t originalId;
 
     friend void from_json(const nlohmann::json& nlohmann_json_j, program& nlohmann_json_t)
     {
@@ -76,6 +84,24 @@ public:
 
         OPTIONAL_JSON_FROM(subGenre1);
         nlohmann_json_t.genre2 = nlohmann_json_t.subGenre1;
+        if (nlohmann_json_j.contains("thumbnails") && nlohmann_json_j["thumbnails"].is_array() && nlohmann_json_j["thumbnails"].size()) {
+            nlohmann_json_j["thumbnails"].at(0).get_to(nlohmann_json_t.thumbnailId);
+            nlohmann_json_t.hasThumbnail = true;
+        }
+        if (nlohmann_json_j.contains("videoFiles") && nlohmann_json_j["videoFiles"].is_array()) {
+            nlohmann_json_t.encoded.clear();
+            for (const auto& e : nlohmann_json_j["videoFiles"]) {
+                if (e["type"] == "ts")
+                {
+                    nlohmann_json_t.originalId = e["id"];
+                    nlohmann_json_t.original = true;
+                }
+                else if (e["type"] == "encoded")
+                {
+                    nlohmann_json_t.encoded.push_back(std::make_pair(e["id"], e["filename"]));
+                }
+            }
+        }
     }
 };
 

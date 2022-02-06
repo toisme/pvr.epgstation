@@ -50,7 +50,7 @@ PVR_ERROR GetRecordings(ADDON_HANDLE handle, bool deleted)
             strncpy(rec.strPlotOutline, r.description.c_str(), PVR_ADDON_DESC_STRING_LENGTH - 1);
             strncpy(rec.strPlot, r.extended.c_str(), PVR_ADDON_DESC_STRING_LENGTH - 1);
             if (r.hasThumbnail) {
-                snprintf(rec.strThumbnailPath, PVR_ADDON_URL_STRING_LENGTH - 1, g_recorded.recordedThumbnailPath.c_str(), rec.strRecordingId);
+                snprintf(rec.strThumbnailPath, PVR_ADDON_URL_STRING_LENGTH - 1, g_recorded.recordedThumbnailPath.c_str(), r.thumbnailId);
             }
 
             PVR->TransferRecordingEntry(handle, &rec);
@@ -93,10 +93,9 @@ PVR_ERROR GetRecordingStreamProperties(const PVR_RECORDING* recording, PVR_NAMED
             id = rec->encoded[selected].first;
         }
 
-        const auto param = "?encodedId=" + std::to_string(id);
-        snprintf(properties[0].strValue, sizeof(properties[0].strValue) - 1, (g_recorded.recordedStreamingPath + param).c_str(), recording->strRecordingId);
+        snprintf(properties[0].strValue, sizeof(properties[0].strValue) - 1, g_recorded.recordedStreamingPath.c_str(), id);
     } else {
-        snprintf(properties[0].strValue, sizeof(properties[0].strValue) - 1, g_recorded.recordedStreamingPath.c_str(), recording->strRecordingId);
+        snprintf(properties[0].strValue, sizeof(properties[0].strValue) - 1, g_recorded.recordedStreamingPath.c_str(), rec->originalId);
     }
 
     *iPropertiesCount = 1;

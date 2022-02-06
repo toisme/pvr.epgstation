@@ -129,9 +129,8 @@ namespace api {
     // GET /api/recorded
     int getRecorded(nlohmann::json& response)
     {
-        //constexpr char apiPath[] = "recorded?limit=65535";
-        //return request("GET", apiPath, &response);
-        return REQUEST_FAILED;
+        constexpr char apiPath[] = "recorded?isHalfWidth=false&limit=65535";
+        return request("GET", apiPath, &response);
     }
 
     // GET /api/reserves
@@ -284,12 +283,11 @@ namespace api {
         return REQUEST_FAILED;
     }
 
-    // GET /api/storage
+    // GET /api/storages
     int getStorage(nlohmann::json& response)
     {
-        //constexpr char apiPath[] = "storage";
-        //return request("GET", apiPath, &response);
-        return REQUEST_FAILED;
+        constexpr char apiPath[] = "storages";
+        return request("GET", apiPath, &response);
     }
 
     // GET /api/docs

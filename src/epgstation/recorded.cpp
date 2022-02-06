@@ -24,7 +24,7 @@ bool Recorded::refresh()
         return false;
     }
 
-    std::copy(response["recorded"].begin(), response["recorded"].end(), std::back_inserter(programs));
+    std::copy(response["records"].begin(), response["records"].end(), std::back_inserter(programs));
 
     XBMC->Log(ADDON::LOG_NOTICE, "Updated recorded program: ammount = %d", programs.size());
     return true;
