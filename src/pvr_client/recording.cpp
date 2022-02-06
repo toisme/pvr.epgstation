@@ -73,7 +73,7 @@ PVR_ERROR GetRecordingStreamProperties(const PVR_RECORDING* recording, PVR_NAMED
 
     strncpy(properties[0].strName, PVR_STREAM_PROPERTY_STREAMURL, sizeof(properties[0].strName) - 1);
 
-    int prefer_encoded;
+    bool prefer_encoded;
     XBMC->GetSetting("prefer_encoded", &prefer_encoded);
     const auto ignoreOriginalPlayback = !rec->encoded.empty() && prefer_encoded;
     if (!rec->original || ignoreOriginalPlayback) {
