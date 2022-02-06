@@ -84,7 +84,7 @@ ADDON_STATUS ADDON_Create(void* callbacks, void* props)
         epgstation::api::baseURL += "api/";
     }
 
-    g_channels.liveStreamingPath = epgstation::api::baseURL + "streams/live/%llu/mpegts";
+    g_channels.liveStreamingPath = epgstation::api::baseURL + "streams/live/%llu/m2ts";
     g_channels.channelLogoPath = epgstation::api::baseURL + "channels/%llu/logo";
     g_recorded.recordedStreamingPath = epgstation::api::baseURL + "recorded/%s/file";
     g_recorded.recordedThumbnailPath = epgstation::api::baseURL + "recorded/%s/thumbnail";

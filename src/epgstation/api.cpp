@@ -108,25 +108,22 @@ namespace api {
     // GET /api/channels
     int getChannels(nlohmann::json& response)
     {
-        //const auto apiPath = "channels";
-        //return request("GET", apiPath, &response);
+        const auto apiPath = "channels";
+        return request("GET", apiPath, &response);
         return REQUEST_FAILED;
     }
 
-    // GET /api/schedule?type=:type
+    // unused
     int getScheduleAll(const std::string type, nlohmann::json& response)
     {
-        //const auto apiPath = "schedule?type=" + type;
-        //return request("GET", apiPath, &response);
         return REQUEST_FAILED;
     }
 
-    // GET /api/schedule/:id?time=:time&days=:days
+    // GET /api/schedules/:id?startAt=:time&days=:days
     int getSchedule(const std::string id, const char* time, const uint16_t days, nlohmann::json& response)
     {
-        //const auto apiPath = "schedule/" + id + "?time=" + time + "&days=" + std::to_string(days);
-        //return request("GET", apiPath, &response);
-        return REQUEST_FAILED;
+        const auto apiPath = "schedules/" + id + "?startAt=" + time + "&days=" + std::to_string(days) + "&isHalfWidth=false";
+        return request("GET", apiPath, &response);
     }
 
     // GET /api/recorded
@@ -298,9 +295,8 @@ namespace api {
     // GET /api/docs
     int getDocs(nlohmann::json& response)
     {
-        //constexpr char apiPath[] = "docs";
-        //return request("GET", apiPath, &response);
-        return REQUEST_FAILED;
+        constexpr char apiPath[] = "docs";
+        return request("GET", apiPath, &response);
     }
 
 } // namespace api

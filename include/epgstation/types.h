@@ -49,13 +49,15 @@ public:
     int16_t ruleId = 0; // Optional for reserved program
     ReservedState state; // Optional for reserved program
 
+    uint8_t subGenre1 = 0xff;
+
     friend void from_json(const nlohmann::json& nlohmann_json_j, program& nlohmann_json_t)
     {
         NLOHMANN_JSON_FROM(id);
         OPTIONAL_JSON_FROM(programId);
         OPTIONAL_JSON_FROM(eventId);
         NLOHMANN_JSON_FROM(channelId);
-        NLOHMANN_JSON_FROM(channelType);
+        OPTIONAL_JSON_FROM(channelType);
         NLOHMANN_JSON_FROM(name);
         OPTIONAL_JSON_FROM(description);
         OPTIONAL_JSON_FROM(extended);
@@ -71,6 +73,9 @@ public:
                 return std::make_pair(e["encodedId"], e["name"]);
             });
         }
+
+        OPTIONAL_JSON_FROM(subGenre1);
+        nlohmann_json_t.genre2 = nlohmann_json_t.subGenre1;
     }
 };
 
@@ -97,7 +102,7 @@ public:
         NLOHMANN_JSON_FROM(hasLogoData);
         NLOHMANN_JSON_FROM(channelType);
         OPTIONAL_JSON_FROM(channelTypeId);
-        NLOHMANN_JSON_FROM(type);
+        OPTIONAL_JSON_FROM(type);
         OPTIONAL_JSON_FROM(remoteControlKeyId);
         if (nlohmann_json_j.contains("channel") && nlohmann_json_j["channel"].is_string()) {
             nlohmann_json_t.channelStr = nlohmann_json_j["channel"];

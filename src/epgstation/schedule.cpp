@@ -36,7 +36,7 @@ std::vector<program> Schedule::fetch(uint32_t channelId, time_t start, time_t en
     delete t;
 #endif
 
-    if (api::getSchedule(std::to_string(channelId), time, days, response) == api::REQUEST_FAILED) {
+    if (api::getSchedule(std::to_string(channelId), std::to_string(start * 1000).c_str(), days, response) == api::REQUEST_FAILED) {
         return list[channelId];
     }
 
