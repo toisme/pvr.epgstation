@@ -136,25 +136,22 @@ namespace api {
     // GET /api/reserves
     int getReserves(nlohmann::json& response)
     {
-        //constexpr char apiPath[] = "reserves?limit=65535";
-        //return request("GET", apiPath, &response);
-        return REQUEST_FAILED;
+        constexpr char apiPath[] = "reserves?isHalfWidth=false&limit=65535";
+        return request("GET", apiPath, &response);
     }
 
-    // GET /api/reserves/skips
+    // GET /api/reserves?type=skips
     int getReservesSkips(nlohmann::json& response)
     {
-        //constexpr char apiPath[] = "reserves/skips?limit=65535";
-        //return request("GET", apiPath, &response);
-        return REQUEST_FAILED;
+        constexpr char apiPath[] = "reserves?isHalfWidth=false&limit=65535&type=skip";
+        return request("GET", apiPath, &response);
     }
 
-    // GET /api/reserves/conflicts
+    // GET /api/reserves?type=conflicts
     int getReservesConflicts(nlohmann::json& response)
     {
-        //constexpr char apiPath[] = "reserves/conflicts?limit=65535";
-        //return request("GET", apiPath, &response);
-        return REQUEST_FAILED;
+        constexpr char apiPath[] = "reserves?isHalfWidth=false&limit=65535&type=conflict";
+        return request("GET", apiPath, &response);
     }
 
     // DELETE /api/recorded/:id
@@ -168,37 +165,33 @@ namespace api {
     // DELETE /api/reserves/:id
     int deleteReserves(const std::string id)
     {
-        //const auto apiPath = "reserves/" + id;
-        //return request("DELETE", apiPath);
-        return REQUEST_FAILED;
+        const auto apiPath = "reserves/" + id;
+        return request("DELETE", apiPath);
     }
 
     // DELETE /api/reserves/:id/skip
     int deleteReservesSkip(const std::string id)
     {
-        //const auto apiPath = "reserves/" + id + "/skip";
-        //return request("DELETE", apiPath);
-        return REQUEST_FAILED;
+        const auto apiPath = "reserves/" + id + "/skip";
+        return request("DELETE", apiPath);
     }
 
     // POST /api/reserves
     int postReserves(const std::string id)
     {
-        //nlohmann::json body = {
-        //    { "programId", std::stoull(id) },
-        //    { "allowEndLack", true },
-        //};
-        //constexpr char apiPath[] = "reserves";
-        //return request("POST", apiPath, nullptr, body);
-        return REQUEST_FAILED;
+        nlohmann::json body = {
+            { "programId", std::stoull(id) },
+            { "allowEndLack", true },
+        };
+        constexpr char apiPath[] = "reserves";
+        return request("POST", apiPath, nullptr, body);
     }
 
     // GET /api/rules
     int getRules(nlohmann::json& response)
     {
-        //constexpr char apiPath[] = "rules?limit=65535";
-        //return request("GET", apiPath, &response);
-        return REQUEST_FAILED;
+        constexpr char apiPath[] = "rules?limit=65535";
+        return request("GET", apiPath, &response);
     }
 
     nlohmann::json createRulePayload(bool enabled, const std::string searchText, bool fullText, uint64_t channelId, unsigned int weekdays, unsigned int startHour, unsigned int endHour, bool anytime, const std::string directory)
@@ -262,9 +255,8 @@ namespace api {
     // PUT /api/rules/:id/:action
     int putRuleAction(int id, bool state)
     {
-        //const auto apiPath = "rules/" + std::to_string(id) + (state ? "/enable" : "/disable");
-        //return request("PUT", apiPath);
-        return REQUEST_FAILED;
+        const auto apiPath = "rules/" + std::to_string(id) + (state ? "/enable" : "/disable");
+        return request("PUT", apiPath);
     }
 
     // DELETE /api/rules/:id

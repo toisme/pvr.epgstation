@@ -139,7 +139,7 @@ public:
 class rule {
 public:
     uint32_t id;
-    std::string keyword;
+    std::string keyword = "";
     bool title = true;
     bool description = false;
     bool enable = true;
@@ -152,16 +152,40 @@ public:
     friend void from_json(const nlohmann::json& nlohmann_json_j, rule& nlohmann_json_t)
     {
         NLOHMANN_JSON_FROM(id);
-        NLOHMANN_JSON_FROM(keyword);
-        OPTIONAL_JSON_FROM(title);
-        OPTIONAL_JSON_FROM(description);
-        NLOHMANN_JSON_FROM(enable);
-        NLOHMANN_JSON_FROM(week);
-        nlohmann_json_t.week = ((nlohmann_json_t.week & 0b00000001) << 6) | ((nlohmann_json_t.week & 0b01111110) >> 1);
+        if (nlohmann_json_j.contains("searchOption") && nlohmann_json_j["searchOption"].is_object()) {
+            if (nlohmann_json_j["searchOption"].contains("keyword") && nlohmann_json_j["searchOption"]["keyword"].is_string()) {
+                nlohmann_json_t.keyword = nlohmann_json_j["searchOption"]["keyword"];
+            }
+            if (nlohmann_json_j["searchOption"].contains("name") && nlohmann_json_j["searchOption"]["name"].is_boolean()) {
+                nlohmann_json_t.title = nlohmann_json_j["searchOption"]["name"];
+            }
+            if (nlohmann_json_j["searchOption"].contains("description") && nlohmann_json_j["searchOption"]["description"].is_boolean()) {
+                nlohmann_json_t.description = nlohmann_json_j["searchOption"]["description"];
+            }
+            if (nlohmann_json_j["searchOption"].contains("times") && nlohmann_json_j["searchOption"]["times"].is_array() && nlohmann_json_j["searchOption"]["times"].size()) {
+                if (nlohmann_json_j["searchOption"]["times"].at(0).contains("week") && nlohmann_json_j["searchOption"]["times"].at(0)["week"].is_number()) {
+                    nlohmann_json_t.week = nlohmann_json_j["searchOption"]["times"].at(0)["week"].get<uint16_t>();
+                    nlohmann_json_t.week = ((nlohmann_json_t.week & 0b00000001) << 6) | ((nlohmann_json_t.week & 0b01111110) >> 1);
+                }
+                if (nlohmann_json_j["searchOption"]["times"].at(0).contains("start") && nlohmann_json_j["searchOption"]["times"].at(0)["start"].is_number()) {
+                    nlohmann_json_t.startTime = nlohmann_json_j["searchOption"]["times"].at(0)["start"].get<uint16_t>();
+                }
+                if (nlohmann_json_j["searchOption"]["times"].at(0).contains("range") && nlohmann_json_j["searchOption"]["times"].at(0)["range"].is_number()) {
+                    nlohmann_json_t.timeRange = nlohmann_json_j["searchOption"]["times"].at(0)["range"].get<uint16_t>();
+                }
+            }
+        }
+        if (nlohmann_json_j.contains("reserveOption") && nlohmann_json_j["reserveOption"].is_object()) {
+            if (nlohmann_json_j["reserveOption"].contains("enable") && nlohmann_json_j["reserveOption"]["enable"].is_boolean()) {
+                nlohmann_json_t.enable = nlohmann_json_j["reserveOption"]["enable"];
+            }
+        }
+        if (nlohmann_json_j.contains("saveOption") && nlohmann_json_j["saveOption"].is_object()) {
+            if (nlohmann_json_j["saveOption"].contains("directory") && nlohmann_json_j["saveOption"]["directory"].is_string()) {
+                nlohmann_json_t.directory = nlohmann_json_j["saveOption"]["directory"];
+            }
+        }
         OPTIONAL_JSON_FROM(station);
-        OPTIONAL_JSON_FROM(startTime);
-        OPTIONAL_JSON_FROM(timeRange);
-        OPTIONAL_JSON_FROM(directory);
     }
 };
 
