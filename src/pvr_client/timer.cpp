@@ -105,7 +105,7 @@ PVR_ERROR GetTimers(ADDON_HANDLE handle)
 
         for (const auto& p : g_reserve.reserves) {
             struct PVR_TIMER timer = {
-                .iClientIndex = static_cast<unsigned int>(p.id),
+                .iClientIndex = static_cast<unsigned int>(p.id | 0x80000000),
                 .iParentClientIndex = static_cast<unsigned int>(p.ruleId),
                 .iClientChannelUid = g_channels.getId(p.channelId),
                 .startTime = p.startAt,
