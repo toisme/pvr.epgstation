@@ -14,8 +14,8 @@
 namespace epgstation {
 class Schedule {
 public:
-    std::map<uint32_t, std::vector<program>> list;
-    std::vector<program> fetch(uint32_t channelId, time_t start, time_t end);
+    std::map<uint64_t, std::vector<program>> list;
+    std::vector<program> fetch(uint64_t channelId, time_t start, time_t end);
     bool update();
 };
 } // namespace epgstation
