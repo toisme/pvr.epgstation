@@ -63,7 +63,7 @@ extern "C" {
 int GetTimersAmount(void)
 {
     if (g_rule.refresh() && g_reserve.refresh()) {
-        return g_rule.rules.size() + g_reserve.reserves.size();
+        return static_cast<int>(g_rule.rules.size() + g_reserve.reserves.size());
     }
     return -1;
 }
@@ -323,7 +323,7 @@ PVR_ERROR GetTimerTypes(PVR_TIMER_TYPE types[], int* size)
         XBMC->GetLocalizedString(MSG_TIMER_PATTERN_MATCHED), PVR_ADDON_TIMERTYPE_STRING_LENGTH - 1);
 
     std::copy(tt.begin(), tt.end(), types);
-    *size = tt.size();
+    *size = static_cast<int>(tt.size());
 
     return PVR_ERROR_NO_ERROR;
 }

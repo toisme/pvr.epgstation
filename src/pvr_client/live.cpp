@@ -70,7 +70,7 @@ void CloseLiveStream(void)
 
 int ReadLiveStream(unsigned char* pBuffer, unsigned int iBufferSize)
 {
-    return XBMC->ReadFile(liveStreamHandle, pBuffer, iBufferSize);
+    return static_cast<int>(XBMC->ReadFile(liveStreamHandle, pBuffer, iBufferSize));
 }
 
 bool IsRealTimeStream()

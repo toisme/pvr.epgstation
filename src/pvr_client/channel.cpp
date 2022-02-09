@@ -21,7 +21,7 @@ int GetChannelsAmount(void)
     if (!g_channels.refresh()) {
         return PVR_ERROR_SERVER_ERROR;
     }
-    return g_channels.channels.size();
+    return static_cast<int>(g_channels.channels.size());
 }
 
 PVR_ERROR GetChannels(ADDON_HANDLE handle, bool bRadio)
@@ -68,7 +68,7 @@ int GetChannelGroupsAmount(void)
     for (const auto& channel : g_channels.channels) {
         list.insert(channel.channelType);
     }
-    return list.size();
+    return static_cast<int>(list.size());
 }
 
 PVR_ERROR GetChannelGroups(ADDON_HANDLE handle, bool bRadio)

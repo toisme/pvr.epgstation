@@ -29,7 +29,7 @@ extern "C" {
 
 int GetRecordingsAmount(bool deleted)
 {
-    return g_recorded.programs.size();
+    return static_cast<int>(g_recorded.programs.size());
 }
 
 PVR_ERROR GetRecordings(ADDON_HANDLE handle, bool deleted)
@@ -86,7 +86,7 @@ PVR_ERROR GetRecordingStreamProperties(const PVR_RECORDING* recording, PVR_NAMED
             });
             entries.push_back(nullptr);
 
-            const auto selected = GUI->Dialog_Select("Select media", entries.data(), rec->encoded.size());
+            const auto selected = GUI->Dialog_Select("Select media", entries.data(), static_cast<unsigned int>(rec->encoded.size()));
             if (selected < 0) {
                 return PVR_ERROR_NOT_IMPLEMENTED;
             }
