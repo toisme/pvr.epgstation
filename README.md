@@ -23,7 +23,7 @@ It might work on other platforms, but it hasn't been tested.
 ```sh
 $ ndk-build APP_ABI=armeabi-v7a
 $ ./jni/pack.sh APP_ABI=armeabi-v7a
-$ ls pvr.chinachu.zip
+$ ls pvr.epgstation.zip
 ```
 
 ### Windows
