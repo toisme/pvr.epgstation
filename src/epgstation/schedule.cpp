@@ -16,7 +16,7 @@
 extern ADDON::CHelper_libXBMC_addon* XBMC;
 
 namespace epgstation {
-std::vector<program> Schedule::fetch(uint32_t channelId, time_t start, time_t end)
+std::vector<program> Schedule::fetch(uint64_t channelId, time_t start, time_t end)
 {
     nlohmann::json response;
 
