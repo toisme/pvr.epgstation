@@ -90,6 +90,7 @@
       <PreprocessorDefinitions>$(DefineConstants);NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_WINSOCKAPI_;__STDC_CONSTANT_MACROS;__STDC_FORMAT_MACROS;__WINDOWS__;TARGET_WINDOWS;_WINDOWS;_MSVC;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\include;..\..\src</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalOptions>/source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -103,6 +104,7 @@
       <PreprocessorDefinitions>$(DefineConstants);NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_WINSOCKAPI_;__STDC_CONSTANT_MACROS;__STDC_FORMAT_MACROS;__WINDOWS__;TARGET_WINDOWS;_WINDOWS;_MSVC;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\include;..\..\src</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalOptions>/source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -118,6 +120,7 @@
       <AdditionalIncludeDirectories>..\..\include;..\..\src</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>$(DefineConstants);NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_WINSOCKAPI_;__STDC_CONSTANT_MACROS;__STDC_FORMAT_MACROS;__WINDOWS__;TARGET_WINDOWS;_WINDOWS;_MSVC;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalOptions>/source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -135,6 +138,7 @@
       <AdditionalIncludeDirectories>..\..\include;..\..\src</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>$(DefineConstants);NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_WINSOCKAPI_;__STDC_CONSTANT_MACROS;__STDC_FORMAT_MACROS;__WINDOWS__;TARGET_WINDOWS;_WINDOWS;_MSVC;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalOptions>/source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
