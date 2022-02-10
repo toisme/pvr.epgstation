@@ -162,6 +162,9 @@ public:
             if (nlohmann_json_j["searchOption"].contains("description") && nlohmann_json_j["searchOption"]["description"].is_boolean()) {
                 nlohmann_json_t.description = nlohmann_json_j["searchOption"]["description"];
             }
+            if (nlohmann_json_j["searchOption"].contains("channelIds") && nlohmann_json_j["searchOption"]["channelIds"].is_array() && nlohmann_json_j["searchOption"]["channelIds"].size()) {
+                nlohmann_json_t.station = nlohmann_json_j["searchOption"]["channelIds"].at(0).get<uint64_t>();
+            }
             if (nlohmann_json_j["searchOption"].contains("times") && nlohmann_json_j["searchOption"]["times"].is_array() && nlohmann_json_j["searchOption"]["times"].size()) {
                 if (nlohmann_json_j["searchOption"]["times"].at(0).contains("week") && nlohmann_json_j["searchOption"]["times"].at(0)["week"].is_number()) {
                     nlohmann_json_t.week = nlohmann_json_j["searchOption"]["times"].at(0)["week"].get<uint16_t>();
