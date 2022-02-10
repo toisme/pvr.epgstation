@@ -157,9 +157,8 @@ namespace api {
     // DELETE /api/recorded/:id
     int deleteRecordedProgram(const std::string id)
     {
-        //const auto apiPath = "recorded/" + id;
-        //return request("DELETE", apiPath);
-        return REQUEST_FAILED;
+        const auto apiPath = "recorded/" + id;
+        return request("DELETE", apiPath);
     }
 
     // DELETE /api/reserves/:id
@@ -265,9 +264,8 @@ namespace api {
     // DELETE /api/rules/:id
     int deleteRule(int id)
     {
-        //const auto apiPath = "rules/" + std::to_string(id);
-        //return request("DELETE", apiPath);
-        return REQUEST_FAILED;
+        const auto apiPath = "rules/" + std::to_string(id);
+        return request("DELETE", apiPath);
     }
 
     // PUT /api/reserves/update
