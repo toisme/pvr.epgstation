@@ -202,54 +202,57 @@ namespace api {
             newWeekdays |= 0x01;
         }
         nlohmann::json body = {
-            { "search", {
-                            { "keyword", searchText },
-                            { "title", true },
-                            { "description", fullText },
-                            { "week", newWeekdays },
-                        } },
-            { "option", {
-                            { "enable", enabled },
-                            { "allowEndLack", true },
-                        } }
+            { "isTimeSpecification", false },
+            { "searchOption", {
+                { "keyword", searchText },
+                { "name", true },
+                { "description", fullText },
+                { "times", { {
+                        { "week", newWeekdays }
+                } } },
+            } },
+            { "reserveOption", {
+                { "enable", enabled },
+                { "allowEndLack", true },
+                { "avoidDuplicate", false },
+            } },
         };
 
         if (channelId == 0) {
-            body["search"]["GR"] = true;
-            body["search"]["BS"] = true;
-            body["search"]["CS"] = true;
-            body["search"]["SKY"] = true;
+            body["searchOption"]["GR"] = true;
+            body["searchOption"]["BS"] = true;
+            body["searchOption"]["CS"] = true;
+            body["searchOption"]["SKY"] = true;
         } else {
-            body["search"]["station"] = channelId;
+            body["searchOption"]["channelIds"] = { channelId };
         }
 
         if (!anytime) {
-            body["search"]["startTime"] = startHour;
-            body["search"]["timeRange"] = (24 + endHour - startHour) % 24;
+            body["searchOption"]["times"][0]["start"] = startHour;
+            body["searchOption"]["times"][0]["range"] = (24 + endHour - startHour) % 24;
         }
 
         if (!directory.empty()) {
-            body["option"]["directory"] = directory;
+            body["saveOption"]["directory"] = directory;
         }
+
         return body;
     }
 
     // POST /api/rules
     int postRules(bool enabled, const std::string searchText, bool fullText, uint64_t channelId, unsigned int weekdays, unsigned int startHour, unsigned int endHour, bool anytime, const std::string directory)
     {
-        //constexpr char apiPath[] = "rules";
-        //nlohmann::json body = createRulePayload(enabled, searchText, fullText, channelId, weekdays, startHour, endHour, anytime, directory);
-        //return request("POST", apiPath, nullptr, body);
-        return REQUEST_FAILED;
+        constexpr char apiPath[] = "rules";
+        nlohmann::json body = createRulePayload(enabled, searchText, fullText, channelId, weekdays, startHour, endHour, anytime, directory);
+        return request("POST", apiPath, nullptr, body);
     }
 
     // PUT /api/rules/:id
     int putRule(int id, bool enabled, const std::string searchText, bool fullText, uint64_t channelId, unsigned int weekdays, unsigned int startHour, unsigned int endHour, bool anytime, const std::string directory)
     {
-        //const auto apiPath = "rules/" + std::to_string(id);
-        //nlohmann::json body = createRulePayload(enabled, searchText, fullText, channelId, weekdays, startHour, endHour, anytime, directory);
-        //return request("PUT", apiPath, nullptr, body);
-        return REQUEST_FAILED;
+        const auto apiPath = "rules/" + std::to_string(id);
+        nlohmann::json body = createRulePayload(enabled, searchText, fullText, channelId, weekdays, startHour, endHour, anytime, directory);
+        return request("PUT", apiPath, nullptr, body);
     }
 
     // PUT /api/rules/:id/:action
