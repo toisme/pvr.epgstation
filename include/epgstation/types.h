@@ -153,39 +153,43 @@ public:
     {
         NLOHMANN_JSON_FROM(id);
         if (nlohmann_json_j.contains("searchOption") && nlohmann_json_j["searchOption"].is_object()) {
-            if (nlohmann_json_j["searchOption"].contains("keyword") && nlohmann_json_j["searchOption"]["keyword"].is_string()) {
-                nlohmann_json_t.keyword = nlohmann_json_j["searchOption"]["keyword"];
+            const auto& o = nlohmann_json_j["searchOption"];
+            if (o.contains("keyword") && o["keyword"].is_string()) {
+                nlohmann_json_t.keyword = o["keyword"];
             }
-            if (nlohmann_json_j["searchOption"].contains("name") && nlohmann_json_j["searchOption"]["name"].is_boolean()) {
-                nlohmann_json_t.title = nlohmann_json_j["searchOption"]["name"];
+            if (o.contains("name") && o["name"].is_boolean()) {
+                nlohmann_json_t.title = o["name"];
             }
-            if (nlohmann_json_j["searchOption"].contains("description") && nlohmann_json_j["searchOption"]["description"].is_boolean()) {
-                nlohmann_json_t.description = nlohmann_json_j["searchOption"]["description"];
+            if (o.contains("description") && o["description"].is_boolean()) {
+                nlohmann_json_t.description = o["description"];
             }
-            if (nlohmann_json_j["searchOption"].contains("channelIds") && nlohmann_json_j["searchOption"]["channelIds"].is_array() && nlohmann_json_j["searchOption"]["channelIds"].size()) {
-                nlohmann_json_t.station = nlohmann_json_j["searchOption"]["channelIds"].at(0).get<uint64_t>();
+            if (o.contains("channelIds") && o["channelIds"].is_array() && o["channelIds"].size()) {
+                nlohmann_json_t.station = o["channelIds"].at(0).get<uint64_t>();
             }
-            if (nlohmann_json_j["searchOption"].contains("times") && nlohmann_json_j["searchOption"]["times"].is_array() && nlohmann_json_j["searchOption"]["times"].size()) {
-                if (nlohmann_json_j["searchOption"]["times"].at(0).contains("week") && nlohmann_json_j["searchOption"]["times"].at(0)["week"].is_number()) {
-                    nlohmann_json_t.week = nlohmann_json_j["searchOption"]["times"].at(0)["week"].get<uint16_t>();
+            if (o.contains("times") && o["times"].is_array() && o["times"].size()) {
+                const auto& t = o["times"].at(0);
+                if (t.contains("week") && t["week"].is_number()) {
+                    nlohmann_json_t.week = t["week"].get<uint16_t>();
                     nlohmann_json_t.week = ((nlohmann_json_t.week & 0b00000001) << 6) | ((nlohmann_json_t.week & 0b01111110) >> 1);
                 }
-                if (nlohmann_json_j["searchOption"]["times"].at(0).contains("start") && nlohmann_json_j["searchOption"]["times"].at(0)["start"].is_number()) {
-                    nlohmann_json_t.startTime = nlohmann_json_j["searchOption"]["times"].at(0)["start"].get<uint16_t>();
+                if (t.contains("start") && t["start"].is_number()) {
+                    nlohmann_json_t.startTime = t["start"].get<uint16_t>();
                 }
-                if (nlohmann_json_j["searchOption"]["times"].at(0).contains("range") && nlohmann_json_j["searchOption"]["times"].at(0)["range"].is_number()) {
-                    nlohmann_json_t.timeRange = nlohmann_json_j["searchOption"]["times"].at(0)["range"].get<uint16_t>();
+                if (t.contains("range") && t["range"].is_number()) {
+                    nlohmann_json_t.timeRange = t["range"].get<uint16_t>();
                 }
             }
         }
         if (nlohmann_json_j.contains("reserveOption") && nlohmann_json_j["reserveOption"].is_object()) {
-            if (nlohmann_json_j["reserveOption"].contains("enable") && nlohmann_json_j["reserveOption"]["enable"].is_boolean()) {
-                nlohmann_json_t.enable = nlohmann_json_j["reserveOption"]["enable"];
+            const auto& o = nlohmann_json_j["reserveOption"];
+            if (o.contains("enable") && o["enable"].is_boolean()) {
+                nlohmann_json_t.enable = o["enable"];
             }
         }
         if (nlohmann_json_j.contains("saveOption") && nlohmann_json_j["saveOption"].is_object()) {
-            if (nlohmann_json_j["saveOption"].contains("directory") && nlohmann_json_j["saveOption"]["directory"].is_string()) {
-                nlohmann_json_t.directory = nlohmann_json_j["saveOption"]["directory"];
+            const auto& o = nlohmann_json_j["saveOption"];
+            if (o.contains("directory") && o["directory"].is_string()) {
+                nlohmann_json_t.directory = o["directory"];
             }
         }
         OPTIONAL_JSON_FROM(station);
