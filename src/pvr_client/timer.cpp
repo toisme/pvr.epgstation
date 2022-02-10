@@ -170,8 +170,8 @@ PVR_ERROR UpdateTimer(const PVR_TIMER& timer)
             auto endHour = get_hour(timer.endTime);
             if (g_rule.edit(timer.iClientIndex, timer.state != PVR_TIMER_STATE_DISABLED,
                     timer.strEpgSearchString, timer.bFullTextEpgSearch,
-                    g_channels.getId(timer.iClientChannelUid), timer.iWeekdays, startHour, endHour,
-                    timer.bStartAnyTime || timer.bEndAnyTime, timer.strDirectory)) {
+                    (timer.iClientChannelUid <= 0) ? 0 : g_channels.getId(timer.iClientChannelUid), timer.iWeekdays,
+                    startHour, endHour, timer.bStartAnyTime || timer.bEndAnyTime, timer.strDirectory)) {
                 goto complete;
             }
             return PVR_ERROR_SERVER_ERROR;
@@ -228,8 +228,8 @@ PVR_ERROR AddTimer(const PVR_TIMER& timer)
         auto endHour = get_hour(timer.endTime);
 
         if (g_rule.add(timer.state != PVR_TIMER_STATE_DISABLED, timer.strEpgSearchString, timer.bFullTextEpgSearch,
-                g_channels.getId(timer.iClientChannelUid), timer.iWeekdays, startHour, endHour,
-                timer.bStartAnyTime || timer.bEndAnyTime, timer.strDirectory)) {
+                (timer.iClientChannelUid <= 0) ? 0 : g_channels.getId(timer.iClientChannelUid), timer.iWeekdays,
+                startHour, endHour, timer.bStartAnyTime || timer.bEndAnyTime, timer.strDirectory)) {
             goto complete;
         }
         return PVR_ERROR_SERVER_ERROR;
