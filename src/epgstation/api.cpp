@@ -270,12 +270,11 @@ namespace api {
         return REQUEST_FAILED;
     }
 
-    // PUT /api/schedule/update
+    // PUT /api/reserves/update
     int putScheduleUpdate()
     {
-        //constexpr char apiPath[] = "schedule/update";
-        //return request("PUT", apiPath);
-        return REQUEST_FAILED;
+        constexpr char apiPath[] = "reserves/update";
+        return request("POST", apiPath);
     }
 
     // GET /api/storages
