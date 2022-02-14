@@ -1,3 +1,6 @@
+v0.0.9-1
+- Temporary version
+
 v0.0.9
 - Add now-recording and recording completed state in timer list view
 - Fix playback failure of encoded recordings when there are more than 255 files
