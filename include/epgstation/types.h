@@ -102,6 +102,7 @@ public:
                 }
             }
         }
+        OPTIONAL_JSON_FROM(ruleId);
     }
 };
 

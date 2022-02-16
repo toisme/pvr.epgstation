@@ -21,6 +21,7 @@
 
 extern epgstation::Recorded g_recorded;
 extern epgstation::Channels g_channels;
+extern epgstation::Rule g_rule;
 extern ADDON::CHelper_libXBMC_addon* XBMC;
 extern CHelper_libXBMC_pvr* PVR;
 extern CHelper_libKODI_guilib* GUI;
@@ -35,6 +36,7 @@ int GetRecordingsAmount(bool deleted)
 PVR_ERROR GetRecordings(ADDON_HANDLE handle, bool deleted)
 {
     if (g_recorded.refresh()) {
+        g_rule.refresh();
         for (const auto& r : g_recorded.programs) {
             const auto genre = epgstation::getGenreCodeFromContentNibble(r.genre1, r.genre2);
             PVR_RECORDING rec = {};
@@ -51,6 +53,13 @@ PVR_ERROR GetRecordings(ADDON_HANDLE handle, bool deleted)
             strncpy(rec.strPlot, r.extended.c_str(), PVR_ADDON_DESC_STRING_LENGTH - 1);
             if (r.hasThumbnail) {
                 snprintf(rec.strThumbnailPath, PVR_ADDON_URL_STRING_LENGTH - 1, g_recorded.recordedThumbnailPath.c_str(), r.thumbnailId);
+            }
+            if (r.ruleId != 0)
+            {
+                const auto recRule = std::find_if(g_rule.rules.begin(), g_rule.rules.end(), [r](epgstation::rule rule) {
+                    return rule.id == r.ruleId;
+                });
+                snprintf(rec.strDirectory, PVR_ADDON_URL_STRING_LENGTH - 1, "%s", recRule->keyword.c_str());
             }
 
             PVR->TransferRecordingEntry(handle, &rec);
