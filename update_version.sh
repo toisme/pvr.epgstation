@@ -24,12 +24,12 @@ awk -F ', ' '/^AC_INIT/ {sub("\\"$2, "['$1']")}; { print }' configure.ac > confi
 cat configure.ac.new > configure.ac
 rm configure.ac.new
 
-iconv -f UTF-16LE VS2019/pvr_client/pvr_client.rc | awk '
-/(FILE|PRODUCT)VERSION/ {sub(/([0-9]+,){3}/, "'$(tr . , <<< $1)',")};
-/(File|Product)Version/ {sub(/([0-9]+\.){3}/, "'$1'.")};
-{ print }' > VS2019/pvr_client/pvr_client.rc.new
-iconv -t UTF-16LE VS2019/pvr_client/pvr_client.rc.new > VS2019/pvr_client/pvr_client.rc
-rm VS2019/pvr_client/pvr_client.rc.new
+#iconv -f UTF-16LE VS2019/pvr_client/pvr_client.rc | awk '
+#/(FILE|PRODUCT)VERSION/ {sub(/([0-9]+,){3}/, "'$(tr . , <<< $1)',")};
+#/(File|Product)Version/ {sub(/([0-9]+\.){3}/, "'$1'.")};
+#{ print }' > VS2019/pvr_client/pvr_client.rc.new
+#iconv -t UTF-16LE VS2019/pvr_client/pvr_client.rc.new > VS2019/pvr_client/pvr_client.rc
+#rm VS2019/pvr_client/pvr_client.rc.new
 
 git commit -am ":up: Release v$1"
 git tag v$1
