@@ -1,5 +1,10 @@
+v0.0.9-2
+- Group recordings by rules
+- Change Android API Level for Android build to 19
+
 v0.0.9-1
-- Temporary version
+- Support EPGStation v2
+- Fix several tiny bugs
 
 v0.0.9
 - Add now-recording and recording completed state in timer list view
