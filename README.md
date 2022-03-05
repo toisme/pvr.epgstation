@@ -9,8 +9,8 @@ The motivation for this fork is to support EPGStation v2 and fix minor issues.
 - EPGStation [v2.6.20](https://github.com/l3tnun/EPGStation/tree/v2.6.20)
 
 ### Frontend
-- Kodi **18.8** Leia
-  + for Android (armv7)
+- Kodi **18.9** Leia
+  + for Android (armv7/aarch64)
   + for Windows 10 (64 bit)
 
 It might work on other platforms, but it hasn't been tested.
@@ -18,7 +18,7 @@ It might work on other platforms, but it hasn't been tested.
 ## Building from source
 
 ### Android ARM
-*Android NDK is required.*
+*Android NDK 19 is required.*
 
 ```sh
 $ ndk-build APP_ABI=armeabi-v7a
