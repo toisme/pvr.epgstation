@@ -54,12 +54,15 @@ PVR_ERROR GetRecordings(ADDON_HANDLE handle, bool deleted)
             if (r.hasThumbnail) {
                 snprintf(rec.strThumbnailPath, PVR_ADDON_URL_STRING_LENGTH - 1, g_recorded.recordedThumbnailPath.c_str(), r.thumbnailId);
             }
-            if (r.ruleId != 0)
-            {
+            if (r.ruleId != 0) {
                 const auto recRule = std::find_if(g_rule.rules.begin(), g_rule.rules.end(), [r](epgstation::rule rule) {
                     return rule.id == r.ruleId;
                 });
-                snprintf(rec.strDirectory, PVR_ADDON_URL_STRING_LENGTH - 1, "%s", recRule->keyword.c_str());
+                if (recRule->keyword.length()) {
+                    snprintf(rec.strDirectory, PVR_ADDON_URL_STRING_LENGTH - 1, "%s", recRule->keyword.c_str());
+                } else {
+                    snprintf(rec.strDirectory, PVR_ADDON_URL_STRING_LENGTH - 1, " ");
+                }
             }
 
             PVR->TransferRecordingEntry(handle, &rec);
